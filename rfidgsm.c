@@ -1,6 +1,8 @@
+
+ 
 /* RFID reader (EM18) : UART0  P0.2 (TXD0), P0.3 (RXD0)   9600 baud
  * GSM module (SIM900): UART2  P0.10 (TXD2), P0.11 (RXD2) 9600 baud
- * LCD : I2C0   P0.27 (SDA0), P0.28 (SCL0) needs pull-ups
+ * LCD (PCF8574 I2C)  : I2C0   P0.27 (SDA0), P0.28 (SCL0) needs pull-ups
  * Door lock / LED    : P2.0 (active high)
  */
 
@@ -11,11 +13,11 @@
 #define RFID_UART     LPC_UART0
 #define LCD_ADDR      0x4E               /* 0x27 << 1 (try 0x3F << 1 = 0x7E) */
 #define ALERT_NUMBER  "+916362503131"    /* put the real number here */
-#define ID_LEN        10                 /* EM18: 10 ID chars + 2 checksum chars */
+#define ID_LEN        12                 /* full frame: 10 ID chars + 2 checksum chars */
 #define FRAME_LEN     12
 
-/* Replace with the IDs of your own cards */
-static const char *authorized[] = { "0123456789", "9876543210" };
+/* Authorized cards (full 12-character frames from the reader) */
+static const char *authorized[] = { "090082070589", "090084336CD2", "09008206C944" };
 #define NUM_AUTH (sizeof(authorized) / sizeof(authorized[0]))
 
 /* ---------- simple delay (approximate) ---------- */
